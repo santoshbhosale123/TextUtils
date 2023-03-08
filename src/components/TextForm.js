@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 
 export default function (props) {
@@ -43,31 +43,30 @@ export default function (props) {
 
   }
 
-  const handleBase36To10 = (e,number, initial_base, change_base) =>{
+  const handleBase36To10 = (e) =>{
     e.preventDefault();
-    if ((initial_base && change_base) <2 || (initial_base && change_base)>36)
-    return 'Base between 2 and 36';
-   
-    let newText =  parseInt(number + '', initial_base)
-    .toString(change_base);
-
-    
-  
+    let newText =  parseInt(text, 36);
     setText(newText);
-
-    
-
-  
-   
-  // //  let newTExt1 = newText.toString();
-  //  console.log(newText);
-  //  setText(newText);
-
+     console.log('In');
   }
+
+  const handleBase16To10 = (e) =>{
+    e.preventDefault();
+    let newText = parseInt(text,16);
+    setText(newText);
+  }
+
+  const handleBase32To10 = (e) =>{
+    e.preventDefault();
+    let newText =parseInt(text,32);
+    setText(newText);
+  }
+
     const handleOnChange = (e)=>{
       console.log("on change");
        setText(e.target.value);
     }
+
 
 
     const[text,setText] = useState('');
@@ -82,20 +81,22 @@ export default function (props) {
     <textarea value={text} onChange={handleOnChange} className="form-control" id="myBox" rows='6' />
    
   </div>
-  
+  <div className='test'>
+  <button className="btn btn-primary mx-2" onClick={handleClear}>ClearText</button>
   <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert To Uppercase</button>
   <button className="btn btn-primary mx-2" onClick={handleLowerClick}>Convert To Lowercase</button>
-  <button className="btn btn-primary mx-2" onClick={handleClear}>ClearText</button>
   <button className="btn btn-primary mx-2" onClick={handleBase64Decode}>Base 64 Decode</button>
   <button className="btn btn-primary mx-2" onClick={handleBase64Encode}>Base 64 Encode</button>
   <button className="btn btn-primary mx-2" onClick={handleBase36To10}>Base 36To10</button>
-  
+  <button className="btn btn-primary mx-2" onClick={handleBase16To10}>Base 16To10</button>
+  <button className="btn btn-primary m-2" onClick={handleBase32To10}>Base 32To10(ForIpConv)</button>
+  </div>
 </form>
     </div>
     <div className='container my-3'>
       <h1>Your text summary</h1>
-      <p>{text.split(" ").length} words,{text.length} characters</p>
-      <p>{0.08 * text.split(" ").length }</p>
+      {/* <p>{text.split(" ").length} words,{text.length} characters</p>
+      <p>{0.08 * text.split(" ").length }</p> */}
       <h3>preview</h3>
       <p>{text}</p>
     </div>
