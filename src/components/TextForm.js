@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
-import CopyToClipboard from 'react-copy-to-clipboard';
 
 
-export default function (props) {
+
+
+export default function TextForm(props) {
   
     
     
@@ -62,6 +63,26 @@ export default function (props) {
     setText(newText);
   }
 
+  const handleCopy = (e) =>{
+    e.preventDefault();
+    let text = document.getElementById("myBox");
+    console.log(text);
+    text.select();
+    navigator.clipboard.writeText(text.value);
+   // setText(newText);
+
+  }
+
+
+  const handleExtraSpaces = (e) =>{
+    e.preventDefault();
+    let newText = text.split(/[ ]+/);
+    console.log(newText);
+   
+    setText(newText.join(" "));
+
+  }
+
     const handleOnChange = (e)=>{
       console.log("on change");
        setText(e.target.value);
@@ -90,6 +111,8 @@ export default function (props) {
   <button className="btn btn-primary mx-2" onClick={handleBase36To10}>Base 36To10</button>
   <button className="btn btn-primary mx-2" onClick={handleBase16To10}>Base 16To10</button>
   <button className="btn btn-primary m-2" onClick={handleBase32To10}>Base 32To10(ForIpConv)</button>
+  <button className="btn btn-primary m-2" onClick={handleCopy}>copyToClickBoard</button>
+  <button className="btn btn-primary m-2" onClick={handleExtraSpaces}>RemoveExtraSpaces</button>
   </div>
 </form>
     </div>
