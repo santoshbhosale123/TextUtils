@@ -13,6 +13,9 @@ export default function TextForm(props) {
     //console.log("uppercase was clicked" + text)
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("converted into UpperCase","success")
+   
+    
     }
 
     
@@ -20,12 +23,15 @@ export default function TextForm(props) {
     e.preventDefault();
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert("converted into lower case","success");
+    
   }
 
   const handleClear = (e) =>{
     e.preventDefault();
    let newText = '';
    setText(newText);
+   props.showAlert(" data cleared","success")
 
   }
   
@@ -34,6 +40,7 @@ export default function TextForm(props) {
     e.preventDefault();
     let newText = atob(text);
     setText(newText);
+    props.showAlert("converted into base64 decode","success")
 
   }
   const handleBase64Encode = (e) =>{
@@ -41,13 +48,14 @@ export default function TextForm(props) {
     e.preventDefault();
     let newText = btoa(text);
     setText(newText);
-
+    props.showAlert("converted into base64 encode","success")
   }
 
   const handleBase36To10 = (e) =>{
     e.preventDefault();
     let newText =  parseInt(text, 36);
     setText(newText);
+    props.showAlert("converted Base 36 To 10 ","success")
      console.log('In');
   }
 
@@ -55,12 +63,14 @@ export default function TextForm(props) {
     e.preventDefault();
     let newText = parseInt(text,16);
     setText(newText);
+    props.showAlert("converted Base 16 To 10","success")
   }
 
   const handleBase32To10 = (e) =>{
     e.preventDefault();
     let newText =parseInt(text,32);
     setText(newText);
+    props.showAlert("converted Base 32 To 10","success")
   }
 
   const handleCopy = (e) =>{
@@ -69,6 +79,7 @@ export default function TextForm(props) {
     console.log(text);
     text.select();
     navigator.clipboard.writeText(text.value);
+    props.showAlert("data Copyied","success")
    // setText(newText);
 
   }
@@ -80,6 +91,7 @@ export default function TextForm(props) {
     console.log(newText);
    
     setText(newText.join(" "));
+    props.showAlert("Extra space removed","success")
 
   }
 
@@ -94,12 +106,13 @@ export default function TextForm(props) {
 
   return (
    <>
-    <div className='container'>
-        <form>
-            <h2>{props.heading} - </h2>
+   
+    <div className='container' style={{color: props.mode ==='dark'?'#FFFFFF':'#042743'}}>
+       
+            <h2 >{props.heading} - </h2>
   <div className="mb-3">
     <label htmlFor="myBox" className="Form-label"></label>
-    <textarea value={text} onChange={handleOnChange} className="form-control" id="myBox" rows='6' />
+    <textarea value={text} onChange={handleOnChange} style={{color: props.mode === 'dark'?'gray':'white',color:props.mode==='dark'?'#FFFFFF':'#042743'}}  className="form-control" id="myBox" rows='8' />
    
   </div>
   <div className='test'>
@@ -114,14 +127,16 @@ export default function TextForm(props) {
   <button className="btn btn-primary m-2" onClick={handleCopy}>copyToClickBoard</button>
   <button className="btn btn-primary m-2" onClick={handleExtraSpaces}>RemoveExtraSpaces</button>
   </div>
-</form>
+
     </div>
-    <div className='container my-3'>
+    <div className='container my-3' style={{color: props.mode==='dark'?'white':'#042743'}}>
       <h1>Your text summary</h1>
       {/* <p>{text.split(" ").length} words,{text.length} characters</p>
       <p>{0.08 * text.split(" ").length }</p> */}
-      <h3>preview</h3>
-      <p>{text}</p>
+      <h3 >preview</h3>
+      {/* <p>{text}</p> */}
+
+      {text.length>0?text:"Enter Something in the textbox to preview it here"}
     </div>
     </>
   )
