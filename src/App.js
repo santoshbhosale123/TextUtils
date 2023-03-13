@@ -4,7 +4,14 @@ import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import React,{useState} from 'react';
 import Alert from './components/Alert';
-// import About from './components/About';
+import About from './components/About';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+
+
 
 
 function App() {
@@ -30,29 +37,34 @@ function App() {
       setMode( 'dark') ;
       document.body.style.backgroundColor ='#8d8c2f';
       showAlert("Dark mode enabled ","success")
-      document.title='TextUtils - Dark Mode'
-
-      // setInterval(()=>{
-      //   document.title ="TextUtils is amazing"
-      // },2000)
 
       }
     else{
       setMode('light');
       document.body.style.backgroundColor ='white';
       showAlert("Light mode enabled ","success")
-      document.title='TextUtils - Light Mode'
     }
 
   }
   return (  
    <>
+      <Router>
     <Navbar  title="TextUtils" mode= {mode} toggleMode ={toggleMode} ></Navbar>
     <Alert alert={alert} />
     <div className='container'>
-    <TextForm showAlert={showAlert} heading="Enter Text To analyze"></TextForm>
-    {/* <About heading ='About us' ></About> */}
-   </div>
+    {/* <TextForm showAlert={showAlert} heading="Enter Text To analyze"></TextForm>
+    <About heading ="About us"></About> */}
+
+ 
+         <Routes>
+        <Route exact path ="/" element={<TextForm showAlert={showAlert} heading="Enter Text To analyze"></TextForm>}></Route>
+         <Route exact path="/about" element ={<About heading ="About us"></About>}></Route> 
+        
+
+      </Routes>
+        </div>
+    </Router>
+  
    </>
      ); 
 
