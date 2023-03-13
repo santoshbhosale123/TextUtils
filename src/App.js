@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import React,{useState} from 'react';
 import Alert from './components/Alert';
+// import About from './components/About';
 
 
 function App() {
@@ -29,12 +30,18 @@ function App() {
       setMode( 'dark') ;
       document.body.style.backgroundColor ='#8d8c2f';
       showAlert("Dark mode enabled ","success")
+      document.title='TextUtils - Dark Mode'
+
+      // setInterval(()=>{
+      //   document.title ="TextUtils is amazing"
+      // },2000)
 
       }
     else{
       setMode('light');
       document.body.style.backgroundColor ='white';
       showAlert("Light mode enabled ","success")
+      document.title='TextUtils - Light Mode'
     }
 
   }
@@ -44,6 +51,7 @@ function App() {
     <Alert alert={alert} />
     <div className='container'>
     <TextForm showAlert={showAlert} heading="Enter Text To analyze"></TextForm>
+    {/* <About heading ='About us' ></About> */}
    </div>
    </>
      ); 
